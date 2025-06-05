@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .converter {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        input, select, button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="converter">
+    <h2>Currency Converter</h2>
+    <label for="from">Convert from:</label>
+    <select id="from">
+        <option value=""selected disabled>choose currency</option>
+        <option value="USD">USD</option>
+        <option value="JPY">JPY</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="GBP">GBP</option>
+        <option value="RWF">RWF</option>
+        <option value="NRA">NRA</option>
+        <option value="SHL">SHL</option>
+    </select>
+
+    <label for="to">Convert to:</label>
+    <select id="to">
+        <option value=""selected disabled>choose currency</option>
+        <option value="USD">USD</option>
+        <option value="JPY">JPY</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="GBP">GBP</option>
+        <option value="RWF">RWF</option>
+        <option value="NRA">NRA</option>
+        <option value="SHL">SHL</option>
+    </select>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <button onclick="convert()">Convert</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    const currencies = {
+        USD: 1.0,
+        JPY: 144.5,
+        EUR: 0.89,
+        RUB: 74.36,
+        GBP: 0.74,
+        RWF: 0.00071,
+        NRA: 1200,
+        SHL: 2900,
+    };
+
+    function convert() {
+        const from = document.getElementById('from').value;
+        const to = document.getElementById('to').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+        const resultEl = document.getElementById('result');
+
+        if (isNaN(amount) || amount < 0) {
+            resultEl.textContent = "Please enter a valid amount.";
+            return;
+        }
+
+        if (currencies[from] && currencies[to]) {
+            const converted = (amount * currencies[from]) / currencies[to];
+            resultEl.textContent = `Converted amount: ${converted.toFixed(2)} ${to}`;
+        } else {
+            resultEl.textContent = "Currency not found!";
+        }
+    }
+</script>
+
+</body>
+</html>
